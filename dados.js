@@ -96,6 +96,7 @@ const CATEGORIAS = [
       "Perfume delicado que fica na pele",
     ],
     ilustracao: "assets/img/elementos/flor-rosa.webp",
+    capa: "assets/img/capa-sabonetes.webp",
     seguranca: {
       titulo: "Sabonete Glicerinado",
       avisos: [
@@ -127,6 +128,8 @@ const CATEGORIAS = [
       },
       {
         id: "acqua",
+        padrao: "assets/img/elementos/brilhos.webp",
+        padraoTamanho: "cover",
         nome: "Sabonete Acqua",
         notas: "Kit de corações",
         descricao: "Coraçõezinhos azuis transparentes, lindos para lembrancinha.",
@@ -167,7 +170,6 @@ const CATEGORIAS = [
       },
       {
         id: "melancia",
-        elemento: "assets/img/elementos/melancia-traco.webp",
         padrao: "assets/img/elementos/sementes.webp",
         nome: "Sabonete Melancia",
         notas: "Fatia de melancia",

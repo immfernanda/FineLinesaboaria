@@ -239,7 +239,7 @@ function montarLinhas() {
         <div class="linha__visual">${visual}</div>
         <div class="linha__texto">
           <h3>${c.nome}</h3>
-          <p>${c.manutencao ? "Em manutenção" : tem ? `${c.produtos.length} ${c.produtos.length === 1 ? "modelo" : "modelos"}${min != null ? ` · a partir de ${reais(min)}` : ""}` : "Novidades chegando"}</p>
+          <p>${c.manutencao ? "Em manutenção" : tem ? (min != null ? `A partir de ${reais(min)}` : "Ver produtos") : "Novidades chegando"}</p>
         </div>
         <span class="linha__seta" aria-hidden="true"><svg class="ico"><use href="#i-seta"/></svg></span>
       </a>`;
@@ -296,7 +296,7 @@ function montarCategoria(cat) {
 
   grade.innerHTML = cat.produtos.map((p) => `
     <article class="produto revelar" id="${p.id}" style="--tom:${p.tom};--tom-suave:${p.tomSuave}" data-produto="${p.id}">
-      <button class="vitrine produto__vitrine${p.formato === "largo" ? " vitrine--larga" : ""}${cat.fundoSolido ? " vitrine--solida" : ""}${p.padrao ? " vitrine--padrao" : ""}" type="button" data-id="${p.id}" data-abrir aria-label="Ver detalhes de ${p.nome}"${p.padrao ? ` style="--padrao:url('${p.padrao}')"` : ""}>
+      <button class="vitrine produto__vitrine${p.formato === "largo" ? " vitrine--larga" : ""}${cat.fundoSolido ? " vitrine--solida" : ""}${p.padrao ? " vitrine--padrao" : ""}" type="button" data-id="${p.id}" data-abrir aria-label="Ver detalhes de ${p.nome}"${p.padrao ? ` style="--padrao:url('${p.padrao}');--padrao-tam:${p.padraoTamanho || "160px"}"` : ""}>
         ${p.elemento ? `<img class="vitrine__elemento" src="${p.elemento}" alt="" aria-hidden="true" loading="lazy">` : ""}
         <img class="vitrine__produto" src="${p.foto}" alt="${cat.titulo} ${p.nome}" loading="lazy">
         ${cat.tamanhos || p.tamanho ? `<span class="produto__tamanho">${cat.tamanhos ? cat.tamanhos[tamanhoAtual].rotulo : p.tamanho}</span>` : ""}
@@ -411,6 +411,7 @@ function abrirFicha(cat, produto) {
   $("#ficha-vitrine").classList.toggle("vitrine--solida", !!cat.fundoSolido);
   $("#ficha-vitrine").classList.toggle("vitrine--padrao", !!produto.padrao);
   $("#ficha-vitrine").style.setProperty("--padrao", produto.padrao ? `url('${produto.padrao}')` : "none");
+  $("#ficha-vitrine").style.setProperty("--padrao-tam", produto.padraoTamanho || "160px");
   $("#ficha-beneficios").hidden = !cat.beneficios;
   $("#ficha-beneficios").innerHTML = (cat.beneficios || []).map((b) => `<li>${b}</li>`).join("");
   $("#ficha-bloco-opcoes").hidden = !cat.opcoes;

@@ -179,7 +179,7 @@ main, footer { position: relative; z-index: 1; }
 
 .hero__elemento { position: absolute; pointer-events: none; animation: balancar 9s ease-in-out infinite; }
 .hero__palco .trio { position: relative; z-index: 1; }
-.hero__elemento--traco { width: 40%; bottom: -14%; left: -26%; z-index: 0; opacity: .45; animation-delay: -3s; }
+.hero__elemento--traco { width: 40%; bottom: -14%; left: -26%; z-index: 0; opacity: .28; animation-delay: -3s; }
 .hero__elemento--cereja { width: 23%; bottom: -10%; right: -7%; z-index: 3; animation-delay: -6s; }
 @keyframes balancar { 50% { rotate: 4deg; } }
 @keyframes surgir { from { opacity: 0; letter-spacing: .08em; } }
@@ -276,6 +276,9 @@ main, footer { position: relative; z-index: 1; }
 .linha:hover { transform: translateY(-6px); box-shadow: var(--sombra); }
 .linha__visual { position: relative; display: flex; align-items: flex-end; justify-content: center; padding: 28px 24px 0; overflow: hidden; }
 .linha__visual .trio { width: min(100%, 300px); }
+/* difusores inteiros, sem encostar na borda de baixo */
+.linha--difusores .linha__visual { align-items: center; padding: 32px 24px; }
+.linha--difusores .trio { width: min(100%, 340px); }
 .linha__capa { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--transicao); }
 .linha:hover .linha__capa { transform: scale(1.05); }
 .linha__ilustracao { width: 58%; margin: auto; align-self: center; transition: transform 1s var(--transicao); }
@@ -330,10 +333,10 @@ main, footer { position: relative; z-index: 1; }
 /* padrão de fundo (ex.: sementes de melancia) */
 .vitrine--padrao::before {
   content: ""; position: absolute; inset: 0;
-  background: var(--padrao) center / 160px repeat;
+  background: var(--padrao) center / var(--padrao-tam, 160px) repeat;
   opacity: .1;
 }
-.vitrine[data-id="melancia"] .vitrine__elemento { width: 46%; top: 6%; right: 4%; opacity: .55; transform: rotate(-12deg); }
+.vitrine[data-id="acqua"]::before { opacity: .35; background-repeat: no-repeat; }
 .vitrine[data-id="maracuja"] .vitrine__elemento { width: 36%; top: 6%; right: 6%; opacity: .45; }
 .trio img:only-child { width: 56%; transform: none; }
 
