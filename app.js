@@ -74,6 +74,7 @@ document.body.insertAdjacentHTML("beforeend", `
       <h2 id="ficha-titulo" class="ficha__nome"></h2>
       <p class="ficha__notas" id="ficha-notas"></p>
       <p class="ficha__descricao" id="ficha-descricao"></p>
+      <ul class="beneficios" id="ficha-beneficios"></ul>
       <div id="ficha-bloco-tamanho">
         <p class="ficha__rotulo">Tamanho</p>
         <div class="tamanhos tamanhos--ficha" id="ficha-tamanhos" role="radiogroup" aria-label="Tamanho"></div>
@@ -134,7 +135,8 @@ function mensagemPedido(cat, produto, tamanho, qtd = 1, opcao = null) {
   const detalhes = [tamanho?.rotulo, opcao && `${cat.opcoes.rotulo.toLowerCase()} ${opcao}`].filter(Boolean).join(", ");
   const valor = preco == null ? "" : `: ${reais(preco * qtd)}`;
   // link da foto vai por último para o WhatsApp mostrar a prévia da imagem
-  const foto = new URL(fotoWhats(produto), location.href).href;
+  // sempre o endereço público, mesmo testando no computador
+  const foto = new URL(fotoWhats(produto), SITE).href;
   return `Olá! Vim pelo catálogo da Fine Line e quero pedir:\n\n• ${qtd}x ${nome}${detalhes ? ` (${detalhes})` : ""}${valor}\n\nPode me passar as formas de pagamento e entrega?\n\nFoto do produto: ${foto}`;
 }
 
@@ -227,10 +229,10 @@ function montarLinhas() {
   $("#linhas-grade").innerHTML = CATEGORIAS.map((c) => {
     const min = precoMinimo(c);
     const tem = c.produtos.length > 0;
-    const visual = tem && c.produtos[0].foto
-      ? `<div class="trio trio--pequeno${c.produtos[0].formato === "largo" ? " trio--largo" : ""}">${[c.produtos[1], c.produtos[0], c.produtos[2]].filter(Boolean).map((p) => `<img src="${p.foto}" alt="" loading="lazy">`).join("")}</div>`
-      : c.capa
-        ? `<img class="linha__capa" src="${c.capa}" alt="" loading="lazy">`
+    const visual = c.capa
+      ? `<img class="linha__capa" src="${c.capa}" alt="" loading="lazy">`
+      : tem && c.produtos[0].foto
+        ? `<div class="trio trio--pequeno${c.produtos[0].formato === "largo" ? " trio--largo" : ""}">${[c.produtos[1], c.produtos[0], c.produtos[2]].filter(Boolean).map((p) => `<img src="${p.foto}" alt="" loading="lazy">`).join("")}</div>`
         : `<img class="linha__ilustracao" src="${c.ilustracao}" alt="" loading="lazy">`;
     return `
       <a class="linha linha--${c.id} revelar" href="${linkCategoria(c.id)}">
@@ -256,6 +258,11 @@ function montarAromas() {
       <p class="aroma__notas">${p.notas}</p>
       <span class="aroma__link">Ver difusor <svg class="ico"><use href="#i-seta"/></svg></span>
     </a>`).join("");
+  // abre a ficha aqui mesmo, sem trocar de página
+  $$("#aromas-grade .aroma").forEach((a, i) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    abrirFicha(dif, dif.produtos[i]);
+  }));
 }
 
 /* ---------- Página de categoria ---------- */
@@ -289,7 +296,7 @@ function montarCategoria(cat) {
 
   grade.innerHTML = cat.produtos.map((p) => `
     <article class="produto revelar" id="${p.id}" style="--tom:${p.tom};--tom-suave:${p.tomSuave}" data-produto="${p.id}">
-      <button class="vitrine produto__vitrine${p.formato === "largo" ? " vitrine--larga" : ""}${cat.fundoSolido ? " vitrine--solida" : ""}" type="button" data-id="${p.id}" data-abrir aria-label="Ver detalhes de ${p.nome}">
+      <button class="vitrine produto__vitrine${p.formato === "largo" ? " vitrine--larga" : ""}${cat.fundoSolido ? " vitrine--solida" : ""}${p.padrao ? " vitrine--padrao" : ""}" type="button" data-id="${p.id}" data-abrir aria-label="Ver detalhes de ${p.nome}"${p.padrao ? ` style="--padrao:url('${p.padrao}')"` : ""}>
         ${p.elemento ? `<img class="vitrine__elemento" src="${p.elemento}" alt="" aria-hidden="true" loading="lazy">` : ""}
         <img class="vitrine__produto" src="${p.foto}" alt="${cat.titulo} ${p.nome}" loading="lazy">
         ${cat.tamanhos || p.tamanho ? `<span class="produto__tamanho">${cat.tamanhos ? cat.tamanhos[tamanhoAtual].rotulo : p.tamanho}</span>` : ""}
@@ -325,8 +332,21 @@ function montarCategoria(cat) {
     montarTrio($("#detalhes-trio"), cat.produtos);
   }
 
+  if (cat.beneficios) {
+    $("#cat-beneficios").hidden = false;
+    $("#cat-beneficios").innerHTML = cat.beneficios.map((b) => `<li>${b}</li>`).join("");
+  }
+
   if (cat.comoUsar) {
     $("#como-usar").hidden = false;
+    // vaporzinho subindo da bacia (escalda-pés)
+    if (cat.comoUsar.vapor) {
+      $("#como-usar .secao__cabeca").insertAdjacentHTML("afterbegin", `
+        <div class="vapor" aria-hidden="true">
+          <span></span><span></span><span></span>
+          <svg viewBox="0 0 120 44"><path d="M6 8h108c0 20-20 32-54 32S6 28 6 8z" fill="var(--lilas-100)" stroke="var(--lilas-500)" stroke-width="2"/><path d="M14 14c14 5 78 5 92 0" fill="none" stroke="var(--lilas-300)" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>`);
+    }
     $("#passos").innerHTML = cat.comoUsar.passos.map((p, i) => `
       <li class="revelar"><span class="passos__n">${i + 1}</span><h3>${p.titulo}</h3><p>${p.texto}</p></li>`).join("");
     $("#aviso").textContent = cat.comoUsar.aviso || "";
@@ -389,6 +409,10 @@ function abrirFicha(cat, produto) {
   fichaEstado = { cat, produto, tamanho: tamanhoAtual, qtd: produto.minimo || 1, opcao: 0 };
   $("#ficha-vitrine").classList.toggle("vitrine--larga", produto.formato === "largo");
   $("#ficha-vitrine").classList.toggle("vitrine--solida", !!cat.fundoSolido);
+  $("#ficha-vitrine").classList.toggle("vitrine--padrao", !!produto.padrao);
+  $("#ficha-vitrine").style.setProperty("--padrao", produto.padrao ? `url('${produto.padrao}')` : "none");
+  $("#ficha-beneficios").hidden = !cat.beneficios;
+  $("#ficha-beneficios").innerHTML = (cat.beneficios || []).map((b) => `<li>${b}</li>`).join("");
   $("#ficha-bloco-opcoes").hidden = !cat.opcoes;
   if (cat.opcoes) {
     $("#ficha-opcoes-rotulo").textContent = cat.opcoes.rotulo;

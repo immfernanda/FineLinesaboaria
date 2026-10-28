@@ -6,6 +6,8 @@
 // Número do WhatsApp com DDI + DDD, só números. Ex.: "5511987654321"
 const WHATSAPP = "5541995777717";
 const INSTAGRAM = "finelinesaboaria";
+// Endereço público do site (usado no link da foto que vai no WhatsApp)
+const SITE = "https://immfernanda.github.io/FineLinesaboaria/";
 const PAGAMENTO = "Até 2x sem juros no cartão ou Pix · Entregamos em Curitiba e região metropolitana, com frete calculado conforme o endereço.";
 
 const SELOS = [
@@ -19,7 +21,13 @@ const CATEGORIAS = [
     id: "difusores",
     nome: "Difusores",
     titulo: "Difusores de Varetas",
-    resumo: "Perfume de casa que dura: frasco de vidro, varetas de algodão e três aromas para escolher.",
+    resumo: "A casa com cheiro de cuidado, o dia todo. As varetas de algodão espalham o aroma devagar, sem fogo e sem pressa, e o frasco de vidro vira parte da decoração.",
+    beneficios: [
+      "Perfuma o ambiente de forma contínua, sem chama",
+      "Varetas de fibra de algodão: mais difusão e durabilidade",
+      "Frasco de vidro cubo que decora qualquer cantinho",
+      "Ideal para sala, quarto, banheiro, lavabo e escritório",
+    ],
     tamanhos: [
       { rotulo: "100 ml", preco: 64.90 },
       { rotulo: "250 ml", preco: 119.90 },
@@ -80,7 +88,13 @@ const CATEGORIAS = [
     id: "sabonetes",
     nome: "Sabonetes",
     titulo: "Sabonetes Glicerinados",
-    resumo: "Pequenos, perfumados e feitos para presentear.",
+    resumo: "Banho que abraça. Sabonetes glicerinados feitos à mão, com extrato de aloe vera, perfume delicado e formatos que dá vontade de presentear.",
+    beneficios: [
+      "Limpa com suavidade, sem ressecar",
+      "Glicerina ajuda a manter a hidratação natural da pele",
+      "Extrato de aloe vera, que acalma e refresca",
+      "Perfume delicado que fica na pele",
+    ],
     ilustracao: "assets/img/elementos/flor-rosa.webp",
     seguranca: {
       titulo: "Sabonete Glicerinado",
@@ -126,6 +140,7 @@ const CATEGORIAS = [
       },
       {
         id: "maracuja",
+        elemento: "assets/img/elementos/maracuja-traco.webp",
         nome: "Sabonete Maracujá",
         notas: "Com sementinhas",
         descricao: "Amarelinho, com sementes de maracujá de verdade. Divertido e perfumado.",
@@ -152,6 +167,8 @@ const CATEGORIAS = [
       },
       {
         id: "melancia",
+        elemento: "assets/img/elementos/melancia-traco.webp",
+        padrao: "assets/img/elementos/sementes.webp",
         nome: "Sabonete Melancia",
         notas: "Fatia de melancia",
         descricao: "Fatias de melancia com casca verde e sementinhas. Fofo e refrescante.",
@@ -178,7 +195,13 @@ const CATEGORIAS = [
     id: "velas",
     nome: "Velas",
     titulo: "Velas Aromáticas",
-    resumo: "Velas feitas à mão em copinho de vidro. Escolha o modelo e depois o aroma.",
+    resumo: "Luz suave e aroma que preenche a casa. Velas de cera de coco modeladas à mão, em copinho de vidro. Escolha o modelo e depois o aroma.",
+    beneficios: [
+      "Cera de coco: queima mais limpa e mais lenta",
+      "Pavio de algodão",
+      "Aroma que se espalha pelo ambiente",
+      "Modelos feitos à mão, um a um",
+    ],
     // Cada vela pode ser feita em qualquer um destes aromas
     opcoes: {
       rotulo: "Aroma",
@@ -257,7 +280,29 @@ const CATEGORIAS = [
     id: "escalda-pes",
     nome: "Escalda-pés",
     titulo: "Escalda-pés",
-    resumo: "Sais com ervas e flores desidratadas para um momento de cuidado e descanso.",
+    resumo: "Um ritual simples para o fim do dia: água morna, sais com ervas e alguns minutos só seus. Os pés descansam, o corpo desacelera.",
+    capa: "assets/img/escalda-pes-trio.webp",
+    beneficios: [
+      "Alivia a sensação de cansaço nos pés",
+      "Mentol que refresca e traz leveza",
+      "Ureia e óleo de semente de uva para uma pele mais macia",
+      "Ervas e flores desidratadas que perfumam o momento",
+    ],
+    destaques: [
+      { icone: "i-coracao", titulo: "Descanso de verdade", texto: "Água morna e sais aliviam a sensação de cansaço depois de um dia longo." },
+      { icone: "i-folha", titulo: "Frescor de mentol", texto: "O mentol refresca e deixa os pés leves." },
+      { icone: "i-mao", titulo: "Pele mais macia", texto: "Ureia e óleo de semente de uva ajudam a cuidar da pele dos pés." },
+      { icone: "i-brilho", titulo: "Aroma de ervas", texto: "Ervas e flores desidratadas transformam o banho num ritual." },
+    ],
+    comoUsar: {
+      vapor: true,
+      passos: [
+        { titulo: "Prepare a bacia", texto: "Coloque água morna, não quente, até cobrir os tornozelos." },
+        { titulo: "Dissolva os sais", texto: "Despeje o conteúdo na água e mexa até dissolver." },
+        { titulo: "Relaxe", texto: "Deixe os pés de molho por 15 a 20 minutos. Depois, enxágue e seque bem." },
+      ],
+      aviso: "Uso externo. Não ingerir. Evite contato com olhos e mucosas.",
+    },
     inclui: ["100 g de sais", "Sal grosso, ervas desidratadas e óleo de semente de uva", "Embalagem com zip"],
     seguranca: {
       titulo: "Escalda-pés",
@@ -277,7 +322,7 @@ const CATEGORIAS = [
         id: "escalda",
         nome: "Escalda-pés",
         notas: "Sais com ervas e flores",
-        descricao: "Sal grosso com ervas, flores desidratadas e mentol. É só dissolver em água morna e relaxar.",
+        descricao: "Sal grosso com ervas e flores desidratadas, mentol e óleo de semente de uva. É só dissolver em água morna, fechar os olhos e deixar o cansaço ir embora.",
         preco: 16.90,
         tamanho: "100 g",
         tom: "#8A5A9E",

@@ -292,6 +292,7 @@ main, footer { position: relative; z-index: 1; }
 }
 .linha:hover .linha__seta { transform: rotate(45deg); }
 .linha--sabonetes { background: #F8E6EA; }
+.linha--escalda-pes .linha__capa { object-position: center 72%; }
 .linha--velas { background: radial-gradient(70% 60% at 50% 62%, #FFF9F2 0%, #F2E3D3 100%); }
 .linha__visual .trio--largo { width: 100%; align-self: center; margin-bottom: 18px; }
 .trio--largo img { width: 38%; transform: none !important; }
@@ -326,6 +327,58 @@ main, footer { position: relative; z-index: 1; }
 }
 
 .vitrine--solida { background: var(--tom-suave); }
+/* padrão de fundo (ex.: sementes de melancia) */
+.vitrine--padrao::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--padrao) center / 160px repeat;
+  opacity: .1;
+}
+.vitrine[data-id="melancia"] .vitrine__elemento { width: 46%; top: 6%; right: 4%; opacity: .55; transform: rotate(-12deg); }
+.vitrine[data-id="maracuja"] .vitrine__elemento { width: 36%; top: 6%; right: 6%; opacity: .45; }
+.trio img:only-child { width: 56%; transform: none; }
+
+/* ---------- Benefícios ---------- */
+.beneficios { list-style: none; padding: 0; margin: 0 0 1.4rem; display: grid; gap: .5rem; }
+.beneficios li { position: relative; padding-left: 1.7rem; font-size: .93rem; color: var(--texto); line-height: 1.45; }
+.beneficios li::before {
+  content: ""; position: absolute; left: 0; top: .15em;
+  width: 1.1rem; height: 1.1rem; border-radius: 50%;
+  background: var(--tom, var(--lilas-500)) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 70% no-repeat;
+}
+.beneficios--topo {
+  max-width: 640px; margin: -8px auto 32px; text-align: left;
+  grid-template-columns: 1fr; background: var(--papel); padding: 20px 22px; border-radius: 22px;
+  box-shadow: inset 0 0 0 1px var(--linha);
+}
+@media (min-width: 720px) { .beneficios--topo { grid-template-columns: 1fr 1fr; column-gap: 24px; } }
+
+/* ---------- Vaporzinho (modo de usar) ---------- */
+.vapor { position: relative; width: 120px; height: 110px; margin: 0 auto 18px; }
+.vapor svg { position: absolute; bottom: 0; left: 0; width: 120px; }
+.vapor span {
+  position: absolute; bottom: 34px; width: 14px; height: 46px;
+  border-left: 2.5px solid var(--lilas-300); border-radius: 50%;
+  opacity: 0; animation: vapor 3.2s ease-in-out infinite;
+}
+.vapor span:nth-child(1) { left: 38px; }
+.vapor span:nth-child(2) { left: 56px; animation-delay: 1s; height: 56px; }
+.vapor span:nth-child(3) { left: 74px; animation-delay: 2s; }
+@keyframes vapor {
+  0% { opacity: 0; transform: translateY(10px) scaleY(.6); }
+  30% { opacity: .9; }
+  100% { opacity: 0; transform: translateY(-28px) scaleY(1.1) skewX(-12deg); }
+}
+
+/* ---------- Categoria com um produto só ---------- */
+.grade-produtos:has(> .produto:only-child) { grid-template-columns: 1fr; max-width: 960px; margin: 0 auto; }
+@media (min-width: 760px) {
+  .produto:only-child { flex-direction: row; gap: 28px; padding: 14px; }
+  .produto:only-child .produto__vitrine { width: 48%; flex: none; }
+  .produto:only-child .produto__corpo { padding: 28px 18px 18px 0; justify-content: center; }
+  .produto:only-child .produto__nome { font-size: 2.4rem; }
+  .produto:only-child .produto__rodape { margin-top: 1rem; }
+}
+
 .vitrine[data-id="laranjeira"] .vitrine__elemento { width: 44%; top: 8%; right: 0; }
 .vitrine[data-id="lavanda"] .vitrine__elemento { width: 40%; top: 4%; right: 2%; }
 .vitrine--larga .vitrine__produto { height: 58%; width: auto; max-width: 82%; object-fit: contain; bottom: 12%; }

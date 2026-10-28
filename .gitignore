@@ -7,3 +7,6 @@ assets/originais/
 
 # Configuração local do editor
 .claude/
+
+# Pasta de elementos enviados (as versões usadas ficam em assets/img/elementos)
+elemntos visuais/
