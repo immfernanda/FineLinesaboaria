@@ -1,0 +1,9 @@
+# Arquivos originais enviados (as versões usadas no site ficam em assets/img)
+/*.png
+/*.jpg
+/*.jpeg
+/*.webp
+assets/originais/
+
+# Configuração local do editor
+.claude/

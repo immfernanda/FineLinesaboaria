@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fine Line · Catálogo</title>
+  <meta name="description" content="Catálogo Fine Line: difusores, sabonetes e velas feitos à mão.">
+  <meta name="theme-color" content="#F5EFFA">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-pagina="inicio">
+
+  <svg class="fio" aria-hidden="true"><path id="fio-path" /></svg>
+
+  <main>
+    <!-- ABERTURA -->
+    <section class="hero" id="inicio">
+      <div class="hero__bolhas" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="hero__palavra" aria-hidden="true" data-parallax="0.18"><span>Fine</span> <span>Line</span></p>
+
+      <div class="hero__palco">
+        <div class="trio" data-parallax="-0.05">
+          <img src="assets/img/difusor-lavanda.webp" alt="Difusor Fine Line Lavanda" width="367" height="903">
+          <img src="assets/img/difusor-laranjeira.webp" alt="Difusor Fine Line Flor de Laranjeira" width="384" height="910">
+          <img src="assets/img/difusor-cereja.webp" alt="Difusor Fine Line Cereja e Avelã" width="381" height="908">
+        </div>
+        <img class="hero__elemento hero__elemento--traco" src="assets/img/elementos/flor-traco-escura.webp" alt="" aria-hidden="true" data-parallax="-0.1">
+        <img class="hero__elemento hero__elemento--cereja" src="assets/img/elementos/cereja-laco.webp" alt="" aria-hidden="true" data-parallax="-0.12">
+
+        <div class="hero__etiqueta hero__etiqueta--a">
+          <svg class="ico"><use href="#i-mao"/></svg> 100% feito à mão
+        </div>
+        <a class="hero__etiqueta hero__etiqueta--b" href="categoria.html?c=difusores">
+          <span>Difusores</span>
+          <strong>a partir de R$ 64,90</strong>
+          <svg class="ico"><use href="#i-seta"/></svg>
+        </a>
+      </div>
+
+      <div class="hero__texto">
+        <h1>Aromas que <span class="destaque">acolhem</span> o seu dia.</h1>
+        <p class="hero__lead">Difusores, sabonetes e velas feitos à mão, em pequenos lotes, para deixar a casa com cheiro de cuidado.</p>
+        <a class="botao" href="#linhas">Ver o catálogo <svg class="ico"><use href="#i-seta-baixo"/></svg></a>
+      </div>
+    </section>
+
+    <!-- SELOS EM MOVIMENTO -->
+    <section class="selos" aria-label="Nossos compromissos" id="selos"></section>
+
+    <!-- LINHAS -->
+    <section class="secao" id="linhas">
+      <div class="secao__cabeca revelar">
+        <h2>Nossas <span class="destaque">linhas</span></h2>
+        <p>Escolha por onde começar.</p>
+      </div>
+      <div class="linhas" id="linhas-grade"></div>
+    </section>
+
+    <!-- AROMAS -->
+    <section class="secao secao--larga" id="aromas">
+      <div class="secao__cabeca revelar">
+        <h2>Três aromas <span class="destaque">para a casa</span></h2>
+        <p>Cada fragrância tem sua cor, seu clima e seu cantinho preferido.</p>
+      </div>
+      <div class="aromas" id="aromas-grade"></div>
+    </section>
+
+    <!-- COMO COMPRAR -->
+    <section class="comprar" id="comprar"></section>
+  </main>
+
+  <script src="dados.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
