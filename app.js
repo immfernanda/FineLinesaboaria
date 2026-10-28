@@ -28,6 +28,9 @@ document.body.insertAdjacentHTML("afterbegin", `
   <symbol id="i-sabonete" viewBox="0 0 24 24"><rect x="4" y="9" width="16" height="10" rx="4" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="9" cy="5" r="1.6" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="14" cy="4" r="1" fill="none" stroke="currentColor" stroke-width="1.2"/></symbol>
   <symbol id="i-vela" viewBox="0 0 24 24"><path d="M12 3c1.6 2 1.6 3.6 0 4.6-1.6-1-1.6-2.6 0-4.6z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><rect x="6" y="10" width="12" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 8v2" stroke="currentColor" stroke-width="1.4"/></symbol>
   <symbol id="i-insta" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="3.6" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="16.6" cy="7.4" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-cartao" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 10.5h18M7 15h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></symbol>
+  <symbol id="i-pix" viewBox="0 0 24 24"><path d="M12 3.5l8.5 8.5-8.5 8.5L3.5 12z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 12l2.5 2.5L16 9" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-entrega" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="7" cy="17.5" r="1.8" fill="var(--papel, #fff)" stroke="currentColor" stroke-width="1.4"/><circle cx="17" cy="17.5" r="1.8" fill="var(--papel, #fff)" stroke="currentColor" stroke-width="1.4"/></symbol>
   <symbol id="i-brilho" viewBox="0 0 24 24"><path d="M12 3c.6 4.6 3.4 7.4 8 8-4.6.6-7.4 3.4-8 8-.6-4.6-3.4-7.4-8-8 4.6-.6 7.4-3.4 8-8z" fill="currentColor"/></symbol>
 </defs></svg>`);
 
@@ -182,14 +185,14 @@ function montarComprar() {
   el.innerHTML = `
     <div class="secao__cabeca revelar"><h2>Como comprar</h2></div>
     <ol class="comprar__passos">
-      <li class="revelar"><strong>Escolha</strong> o produto, o aroma e o tamanho aqui no catálogo.</li>
-      <li class="revelar"><strong>Toque em “Pedir”</strong> e a mensagem já vai pronta para o nosso WhatsApp.</li>
-      <li class="revelar"><strong>Combine</strong> com a gente o pagamento e a entrega.</li>
+      <li class="revelar"><span class="comprar__n">1</span><h3>Escolha</h3><p>Produto, aroma e tamanho, aqui no catálogo.</p></li>
+      <li class="revelar"><span class="comprar__n">2</span><h3>Peça pelo WhatsApp</h3><p>Toque em “Pedir” e a mensagem já vai pronta.</p></li>
+      <li class="revelar"><span class="comprar__n">3</span><h3>Receba em casa</h3><p>Combinamos com você o pagamento e a entrega.</p></li>
     </ol>
     <ul class="comprar__info revelar">
-      <li><strong>Até 2x sem juros</strong> no cartão</li>
-      <li><strong>Pix</strong> à vista</li>
-      <li><strong>Entrega em Curitiba e região</strong>, você só paga o frete</li>
+      <li><svg class="ico"><use href="#i-cartao"/></svg><span><strong>Até 2x sem juros</strong>no cartão de crédito</span></li>
+      <li><svg class="ico"><use href="#i-pix"/></svg><span><strong>Pix</strong>pagamento à vista</span></li>
+      <li><svg class="ico"><use href="#i-entrega"/></svg><span><strong>Curitiba e região</strong>frete calculado conforme o endereço</span></li>
     </ul>
     <a class="botao botao--grande revelar js-whats" href="#"><svg class="ico"><use href="#i-whats"/></svg> Falar no WhatsApp</a>`;
 }
@@ -234,7 +237,7 @@ function montarLinhas() {
         <div class="linha__visual">${visual}</div>
         <div class="linha__texto">
           <h3>${c.nome}</h3>
-          <p>${tem ? `${c.produtos.length} ${c.produtos.length === 1 ? "modelo" : "modelos"}${min != null ? ` · a partir de ${reais(min)}` : ""}` : "Novidades chegando"}</p>
+          <p>${c.manutencao ? "Em manutenção" : tem ? `${c.produtos.length} ${c.produtos.length === 1 ? "modelo" : "modelos"}${min != null ? ` · a partir de ${reais(min)}` : ""}` : "Novidades chegando"}</p>
         </div>
         <span class="linha__seta" aria-hidden="true"><svg class="ico"><use href="#i-seta"/></svg></span>
       </a>`;
@@ -275,8 +278,10 @@ function montarCategoria(cat) {
     grade.outerHTML = `
       <div class="vazio revelar">
         <img src="assets/img/elementos/flor-traco.webp" alt="" aria-hidden="true">
-        <h2>Estamos preparando essa linha</h2>
-        <p>Os ${cat.nome.toLowerCase()} chegam em breve por aqui. Enquanto isso, chama a gente no WhatsApp.</p>
+        <h2>${cat.manutencao ? "Em manutenção" : "Estamos preparando essa linha"}</h2>
+        <p>${cat.manutencao
+          ? `Os ${cat.nome.toLowerCase()} estão passando por ajustes e voltam em breve. Quer saber mais? Fala com a gente no WhatsApp.`
+          : `Os ${cat.nome.toLowerCase()} chegam em breve por aqui. Enquanto isso, chama a gente no WhatsApp.`}</p>
         <a class="botao js-whats" href="#"><svg class="ico"><use href="#i-whats"/></svg> Falar no WhatsApp</a>
       </div>`;
     return;
@@ -284,10 +289,10 @@ function montarCategoria(cat) {
 
   grade.innerHTML = cat.produtos.map((p) => `
     <article class="produto revelar" id="${p.id}" style="--tom:${p.tom};--tom-suave:${p.tomSuave}" data-produto="${p.id}">
-      <button class="vitrine produto__vitrine${p.formato === "largo" ? " vitrine--larga" : ""}" type="button" data-id="${p.id}" data-abrir aria-label="Ver detalhes de ${p.nome}">
+      <button class="vitrine produto__vitrine${p.formato === "largo" ? " vitrine--larga" : ""}${cat.fundoSolido ? " vitrine--solida" : ""}" type="button" data-id="${p.id}" data-abrir aria-label="Ver detalhes de ${p.nome}">
         ${p.elemento ? `<img class="vitrine__elemento" src="${p.elemento}" alt="" aria-hidden="true" loading="lazy">` : ""}
         <img class="vitrine__produto" src="${p.foto}" alt="${cat.titulo} ${p.nome}" loading="lazy">
-        <span class="produto__tamanho">${cat.tamanhos ? cat.tamanhos[tamanhoAtual].rotulo : p.tamanho || ""}</span>
+        ${cat.tamanhos || p.tamanho ? `<span class="produto__tamanho">${cat.tamanhos ? cat.tamanhos[tamanhoAtual].rotulo : p.tamanho}</span>` : ""}
         <span class="produto__lupa" aria-hidden="true"><svg class="ico"><use href="#i-seta"/></svg></span>
       </button>
       <div class="produto__corpo">
@@ -383,6 +388,7 @@ function atualizarFicha() {
 function abrirFicha(cat, produto) {
   fichaEstado = { cat, produto, tamanho: tamanhoAtual, qtd: produto.minimo || 1, opcao: 0 };
   $("#ficha-vitrine").classList.toggle("vitrine--larga", produto.formato === "largo");
+  $("#ficha-vitrine").classList.toggle("vitrine--solida", !!cat.fundoSolido);
   $("#ficha-bloco-opcoes").hidden = !cat.opcoes;
   if (cat.opcoes) {
     $("#ficha-opcoes-rotulo").textContent = cat.opcoes.rotulo;
@@ -412,7 +418,9 @@ function abrirFicha(cat, produto) {
   $("#ficha-seguranca").hidden = !cat.seguranca;
   $("#ficha-seguranca").open = false;
   if (cat.seguranca) {
-    $("#ficha-seguranca-corpo").innerHTML = rotuloHTML(cat.seguranca)
+    // a composição pode mudar de um produto para outro (ex.: essência do sabonete)
+    const seg = produto.composicao ? { ...cat.seguranca, composicao: produto.composicao } : cat.seguranca;
+    $("#ficha-seguranca-corpo").innerHTML = rotuloHTML(seg)
       + `<a class="rotulo__link" href="seguranca.html#${cat.id}">Ver todos os rótulos de segurança</a>`;
   }
   if (cat.tamanhos) montarTamanhos($("#ficha-tamanhos"), cat.tamanhos, fichaEstado.tamanho, (i) => { fichaEstado.tamanho = i; atualizarFicha(); });

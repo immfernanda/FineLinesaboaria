@@ -6,7 +6,7 @@
 // Número do WhatsApp com DDI + DDD, só números. Ex.: "5511987654321"
 const WHATSAPP = "5541995777717";
 const INSTAGRAM = "finelinesaboaria";
-const PAGAMENTO = "Até 2x sem juros no cartão ou Pix · Entrega em Curitiba e região, você só paga o frete.";
+const PAGAMENTO = "Até 2x sem juros no cartão ou Pix · Entregamos em Curitiba e região metropolitana, com frete calculado conforme o endereço.";
 
 const SELOS = [
   { icone: "i-mao", texto: "100% artesanal" },
@@ -91,43 +91,50 @@ const CATEGORIAS = [
         "Evite contato com os olhos.",
         "Mantenha fora do alcance de crianças.",
       ],
-      composicao: "Base glicerinada, lauril de milho, essência, extrato glicerinado de aloe vera e pigmento cosmético.",
-      conteudo: "33 g",
+      composicao: "Base glicerinada, lauril de milho, extrato glicerinado de aloe vera, pigmento cosmético e essência (varia conforme o sabonete).",
+      conteudo: "90 g",
       uso: "Externo",
       validade: "1 ano a partir da data de fabricação (impressa no rótulo).",
     },
+    fundoSolido: true,
     produtos: [
       {
-        id: "medalhao",
-        nome: "Sabonete Medalhão",
+        id: "chiclete",
+        nome: "Sabonete Chiclete",
         notas: "Acompanha estrelinhas",
         descricao: "Sabonete redondo com o selo 100% artesanal, acompanhado de estrelinhas de sabonete.",
-        preco: null, // preço a definir
+        preco: 17.90,
+        tamanho: "90 g",
+        composicao: "Base glicerinada, lauril de milho, essência de chiclete, extrato glicerinado de aloe vera e pigmento cosmético.",
         tom: "#A0475F",
-        tomSuave: "#F6E4EA",
-        foto: "assets/img/sabonete-medalhao.webp",
+        tomSuave: "#F6D9E3",
+        foto: "assets/img/sabonete-chiclete.webp",
+        formato: "largo",
+      },
+      {
+        id: "acqua",
+        nome: "Sabonete Acqua",
+        notas: "Kit de corações",
+        descricao: "Coraçõezinhos azuis transparentes, lindos para lembrancinha.",
+        preco: 17.90,
+        tamanho: "90 g",
+        composicao: "Base glicerinada, lauril de milho, essência, extrato glicerinado de aloe vera e pigmento cosmético.",
+        tom: "#1F7F8C",
+        tomSuave: "#CDEBEE",
+        foto: "assets/img/sabonete-acqua.webp",
         formato: "largo",
       },
       {
         id: "maracuja",
         nome: "Sabonete Maracujá",
         notas: "Com sementinhas",
-        descricao: "Amarelinho, com sementes de verdade. Divertido e perfumado.",
-        preco: null, // preço a definir
+        descricao: "Amarelinho, com sementes de maracujá de verdade. Divertido e perfumado.",
+        preco: 17.90,
+        tamanho: "90 g",
+        composicao: "Base glicerinada, lauril de milho, essência de maracujá, sementes de maracujá, extrato glicerinado de aloe vera e pigmento cosmético.",
         tom: "#857509",
-        tomSuave: "#FAF6D8",
+        tomSuave: "#F7F0C4",
         foto: "assets/img/sabonete-maracuja.webp",
-        formato: "largo",
-      },
-      {
-        id: "coracao-azul",
-        nome: "Sabonete Coração Azul",
-        notas: "Kit de corações",
-        descricao: "Coraçõezinhos azuis transparentes, lindos para lembrancinha.",
-        preco: null, // preço a definir
-        tom: "#1F7F8C",
-        tomSuave: "#E0F3F5",
-        foto: "assets/img/sabonete-coracao-azul.webp",
         formato: "largo",
       },
       {
@@ -135,9 +142,11 @@ const CATEGORIAS = [
         nome: "Sabonete Coração Vermelho",
         notas: "Kit de corações",
         descricao: "Corações vermelhos transparentes, perfeitos para presentear quem você ama.",
-        preco: null, // preço a definir
+        preco: 17.90,
+        tamanho: "90 g",
+        composicao: "Base glicerinada, lauril de milho, essência, extrato glicerinado de aloe vera e pigmento cosmético.",
         tom: "#B53A3A",
-        tomSuave: "#FBE5E3",
+        tomSuave: "#F8D9D6",
         foto: "assets/img/sabonete-coracao-vermelho.webp",
         formato: "largo",
       },
@@ -146,9 +155,11 @@ const CATEGORIAS = [
         nome: "Sabonete Melancia",
         notas: "Fatia de melancia",
         descricao: "Fatias de melancia com casca verde e sementinhas. Fofo e refrescante.",
-        preco: null, // preço a definir
+        preco: 17.90,
+        tamanho: "90 g",
+        composicao: "Base glicerinada, lauril de milho, essência de melancia, sementes, extrato glicerinado de aloe vera e pigmento cosmético.",
         tom: "#2F7A3E",
-        tomSuave: "#FCE9E6",
+        tomSuave: "#FADDD8",
         foto: "assets/img/sabonete-melancia.webp",
         formato: "largo",
       },
@@ -160,6 +171,7 @@ const CATEGORIAS = [
     titulo: "Sabonetes Líquidos",
     resumo: "Espuma suave e perfume que fica nas mãos.",
     capa: "assets/img/elementos/glicerina.webp",
+    manutencao: true,
     produtos: [],
   },
   {

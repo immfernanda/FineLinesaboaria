@@ -325,6 +325,7 @@ main, footer { position: relative; z-index: 1; }
   transition: transform .8s var(--transicao);
 }
 
+.vitrine--solida { background: var(--tom-suave); }
 .vitrine[data-id="laranjeira"] .vitrine__elemento { width: 44%; top: 8%; right: 0; }
 .vitrine[data-id="lavanda"] .vitrine__elemento { width: 40%; top: 4%; right: 2%; }
 .vitrine--larga .vitrine__produto { height: 58%; width: auto; max-width: 82%; object-fit: contain; bottom: 12%; }
@@ -489,24 +490,32 @@ main, footer { position: relative; z-index: 1; }
   max-width: 980px; display: grid; gap: 14px; text-align: left;
 }
 .comprar__passos li {
-  counter-increment: passo;
-  display: flex; gap: 14px; align-items: center;
-  background: var(--papel); border-radius: 20px; padding: 18px 20px;
-  color: var(--texto-suave);
+  display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center;
+  background: var(--papel); border-radius: 22px; padding: 20px 22px;
 }
-.comprar__passos li::before {
-  content: counter(passo);
-  font-family: var(--f-titulo); font-size: 1.8rem; font-weight: 500; color: var(--lilas-500);
-  min-width: 1.2em; text-align: center;
+.comprar__n {
+  grid-row: span 2;
+  display: grid; place-items: center;
+  width: 46px; height: 46px; border-radius: 50%;
+  background: var(--lilas-100); color: var(--lilas-700);
+  font-family: var(--f-titulo); font-size: 1.35rem; font-weight: 500;
 }
-.comprar__passos strong { color: var(--ameixa); font-weight: 500; }
-@media (min-width: 860px) { .comprar__passos { grid-template-columns: repeat(3, 1fr); } }
+.comprar__passos h3 { font-size: 1.25rem; }
+.comprar__passos p { color: var(--texto-suave); font-size: .92rem; }
+@media (min-width: 860px) {
+  .comprar__passos { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .comprar__passos li { grid-template-columns: 1fr; text-align: center; padding: 30px 24px; row-gap: 6px; }
+  .comprar__n { grid-row: auto; margin: 0 auto 8px; }
+}
 .comprar__info {
-  list-style: none; padding: 0; margin: 0 auto 32px; max-width: 980px;
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  list-style: none; padding: 18px 22px; margin: 0 auto 36px; max-width: 980px;
+  display: grid; gap: 16px; text-align: left;
+  background: var(--ameixa); color: #D9CCE8; border-radius: 22px;
 }
-.comprar__info li { background: var(--ameixa); color: #EFE6F7; padding: .55em 1.1em; border-radius: 999px; font-size: .88rem; }
-.comprar__info strong { color: #fff; font-weight: 500; }
+.comprar__info li { display: flex; align-items: center; gap: 12px; font-size: .88rem; line-height: 1.35; }
+.comprar__info .ico { width: 34px; height: 34px; padding: 7px; border-radius: 50%; background: rgba(255, 255, 255, .1); color: #fff; --papel: var(--ameixa); }
+.comprar__info strong { display: block; color: #fff; font-weight: 500; font-size: .95rem; }
+@media (min-width: 860px) { .comprar__info { grid-template-columns: repeat(3, 1fr); padding: 22px 28px; } }
 
 /* ---------- Rodapé ---------- */
 .rodape { text-align: center; padding: 56px 20px 120px; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
