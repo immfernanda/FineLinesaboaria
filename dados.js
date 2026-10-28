@@ -6,6 +6,7 @@
 // Número do WhatsApp com DDI + DDD, só números. Ex.: "5511987654321"
 const WHATSAPP = "5541995777717";
 const INSTAGRAM = "finelinesaboaria";
+const PAGAMENTO = "Até 2x sem juros no cartão ou Pix · Entrega em Curitiba e região, você só paga o frete.";
 
 const SELOS = [
   { icone: "i-mao", texto: "100% artesanal" },
@@ -95,7 +96,63 @@ const CATEGORIAS = [
       uso: "Externo",
       validade: "1 ano a partir da data de fabricação (impressa no rótulo).",
     },
-    produtos: [],
+    produtos: [
+      {
+        id: "medalhao",
+        nome: "Sabonete Medalhão",
+        notas: "Acompanha estrelinhas",
+        descricao: "Sabonete redondo com o selo 100% artesanal, acompanhado de estrelinhas de sabonete.",
+        preco: null, // preço a definir
+        tom: "#A0475F",
+        tomSuave: "#F6E4EA",
+        foto: "assets/img/sabonete-medalhao.webp",
+        formato: "largo",
+      },
+      {
+        id: "maracuja",
+        nome: "Sabonete Maracujá",
+        notas: "Com sementinhas",
+        descricao: "Amarelinho, com sementes de verdade. Divertido e perfumado.",
+        preco: null, // preço a definir
+        tom: "#857509",
+        tomSuave: "#FAF6D8",
+        foto: "assets/img/sabonete-maracuja.webp",
+        formato: "largo",
+      },
+      {
+        id: "coracao-azul",
+        nome: "Sabonete Coração Azul",
+        notas: "Kit de corações",
+        descricao: "Coraçõezinhos azuis transparentes, lindos para lembrancinha.",
+        preco: null, // preço a definir
+        tom: "#1F7F8C",
+        tomSuave: "#E0F3F5",
+        foto: "assets/img/sabonete-coracao-azul.webp",
+        formato: "largo",
+      },
+      {
+        id: "coracao-vermelho",
+        nome: "Sabonete Coração Vermelho",
+        notas: "Kit de corações",
+        descricao: "Corações vermelhos transparentes, perfeitos para presentear quem você ama.",
+        preco: null, // preço a definir
+        tom: "#B53A3A",
+        tomSuave: "#FBE5E3",
+        foto: "assets/img/sabonete-coracao-vermelho.webp",
+        formato: "largo",
+      },
+      {
+        id: "melancia",
+        nome: "Sabonete Melancia",
+        notas: "Fatia de melancia",
+        descricao: "Fatias de melancia com casca verde e sementinhas. Fofo e refrescante.",
+        preco: null, // preço a definir
+        tom: "#2F7A3E",
+        tomSuave: "#FCE9E6",
+        foto: "assets/img/sabonete-melancia.webp",
+        formato: "largo",
+      },
+    ],
   },
   {
     id: "sabonetes-liquidos",
@@ -146,12 +203,13 @@ const CATEGORIAS = [
         formato: "largo",
       },
       {
-        id: "ursinho",
-        nome: "Vela Ursinho",
-        notas: "3 aromas para escolher",
-        descricao: "Um ursinho segurando um coração. Fofa para o quarto do bebê e para presentear.",
+        id: "infantil",
+        nome: "Vela Infantil",
+        notas: "Lembrancinha · mínimo 10 unidades",
+        descricao: "Ursinho segurando um coração, feito para lembrancinhas de chá de bebê, maternidade e aniversário. Pedido mínimo de 10 unidades.",
         preco: 59.90,
         tamanho: "90 g",
+        minimo: 10,
         tom: "#4E6FBF",
         tomSuave: "#E6ECF9",
         foto: "assets/img/vela-ursinho.webp",
@@ -168,6 +226,51 @@ const CATEGORIAS = [
         tomSuave: "#F8E6EA",
         foto: "assets/img/vela-rosa.webp",
         formato: "largo",
+      },
+      {
+        id: "laco",
+        nome: "Vela Laço",
+        notas: "3 aromas para escolher",
+        descricao: "Copo de vidro canelado com laço de cetim azul. Delicada para presentear e decorar.",
+        preco: 59.90,
+        tamanho: "90 g",
+        tom: "#2E4FA8",
+        tomSuave: "#E8EDF8",
+        foto: "assets/img/vela-laco.webp",
+        formato: "largo",
+      },
+    ],
+  },
+  {
+    id: "escalda-pes",
+    nome: "Escalda-pés",
+    titulo: "Escalda-pés",
+    resumo: "Sais com ervas e flores desidratadas para um momento de cuidado e descanso.",
+    inclui: ["100 g de sais", "Sal grosso, ervas desidratadas e óleo de semente de uva", "Embalagem com zip"],
+    seguranca: {
+      titulo: "Escalda-pés",
+      avisos: [
+        "Não ingerir. Evite contato com olhos e mucosas.",
+        "Não usar sobre pele ferida ou irritada.",
+        "Suspenda o uso em caso de irritação.",
+        "Mantenha fora do alcance de crianças, em local seco e protegido da umidade.",
+      ],
+      composicao: "Sal grosso, louro em pó, bicarbonato de sódio, ácido cítrico, ureia, mentol, óleo de semente de uva, essência, ervas desidratadas e corante cosmético.",
+      modoDeUsar: "Dissolva o conteúdo em uma bacia com água morna. Uso externo.",
+      conteudo: "100 g",
+      validade: "6 meses a partir da data de fabricação (impressa no rótulo).",
+    },
+    produtos: [
+      {
+        id: "escalda",
+        nome: "Escalda-pés",
+        notas: "Sais com ervas e flores",
+        descricao: "Sal grosso com ervas, flores desidratadas e mentol. É só dissolver em água morna e relaxar.",
+        preco: 16.90,
+        tamanho: "100 g",
+        tom: "#8A5A9E",
+        tomSuave: "#F1E8F6",
+        foto: "assets/img/escalda-pes.webp",
       },
     ],
   },

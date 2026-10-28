@@ -301,6 +301,7 @@ main, footer { position: relative; z-index: 1; }
 @media (min-width: 640px) {
   .linhas { grid-template-columns: 1fr 1fr; }
   .linha { min-height: 440px; }
+  .linha:first-child { grid-column: span 2; }
 }
 
 /* ---------- Vitrine: elemento atrás, produto na frente ---------- */
@@ -326,7 +327,7 @@ main, footer { position: relative; z-index: 1; }
 
 .vitrine[data-id="laranjeira"] .vitrine__elemento { width: 44%; top: 8%; right: 0; }
 .vitrine[data-id="lavanda"] .vitrine__elemento { width: 40%; top: 4%; right: 2%; }
-.vitrine--larga .vitrine__produto { height: auto; width: 74%; bottom: 14%; }
+.vitrine--larga .vitrine__produto { height: 58%; width: auto; max-width: 82%; object-fit: contain; bottom: 12%; }
 .ficha__vitrine.vitrine--larga .vitrine__produto { width: auto; height: 76%; max-width: 86%; object-fit: contain; bottom: 10%; }
 .produto:hover .vitrine--larga .vitrine__produto { transform: translateX(-50%) translateY(-8px) rotate(-2deg); }
 
@@ -500,6 +501,12 @@ main, footer { position: relative; z-index: 1; }
 }
 .comprar__passos strong { color: var(--ameixa); font-weight: 500; }
 @media (min-width: 860px) { .comprar__passos { grid-template-columns: repeat(3, 1fr); } }
+.comprar__info {
+  list-style: none; padding: 0; margin: 0 auto 32px; max-width: 980px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+}
+.comprar__info li { background: var(--ameixa); color: #EFE6F7; padding: .55em 1.1em; border-radius: 999px; font-size: .88rem; }
+.comprar__info strong { color: #fff; font-weight: 500; }
 
 /* ---------- Rodapé ---------- */
 .rodape { text-align: center; padding: 56px 20px 120px; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
@@ -561,6 +568,10 @@ main, footer { position: relative; z-index: 1; }
 .qtd button { width: 44px; height: 44px; border: 0; background: none; font-size: 1.3rem; color: var(--ameixa); cursor: pointer; border-radius: 50%; }
 .qtd button:hover { background: var(--lilas-50); }
 .qtd output { min-width: 2ch; text-align: center; font-weight: 500; }
+.ficha__valores { text-align: right; }
+.ficha__parcela { font-size: .82rem; color: var(--texto-suave); }
+.ficha__minimo { font-size: .85rem; color: var(--tom, var(--lilas-700)); font-weight: 500; margin: -6px 0 14px; }
+.ficha__pagamento { font-size: .8rem; color: var(--texto-suave); text-align: center; margin-top: 10px; }
 .ficha__mais { margin-top: 20px; border-top: 1px solid var(--linha); padding-top: 14px; }
 .ficha__mais summary { cursor: pointer; font-weight: 500; color: var(--ameixa); list-style: none; display: flex; justify-content: space-between; }
 .ficha__mais summary::-webkit-details-marker { display: none; }

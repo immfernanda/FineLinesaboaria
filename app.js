@@ -85,9 +85,14 @@ document.body.insertAdjacentHTML("beforeend", `
           <output id="ficha-qtd">1</output>
           <button type="button" data-qtd="1" aria-label="Aumentar">+</button>
         </div>
-        <p class="ficha__preco" id="ficha-preco"></p>
+        <div class="ficha__valores">
+          <p class="ficha__preco" id="ficha-preco"></p>
+          <p class="ficha__parcela" id="ficha-parcela"></p>
+        </div>
       </div>
+      <p class="ficha__minimo" id="ficha-minimo"></p>
       <a class="botao botao--largo" id="ficha-pedir" href="#"><svg class="ico"><use href="#i-whats"/></svg> Pedir pelo WhatsApp</a>
+      <p class="ficha__pagamento">${PAGAMENTO}</p>
       <details class="ficha__mais" id="ficha-mais">
         <summary>O que vem no produto</summary>
         <ul id="ficha-inclui"></ul>
@@ -125,9 +130,13 @@ function mensagemPedido(cat, produto, tamanho, qtd = 1, opcao = null) {
   const nome = cat.tamanhos ? `${cat.titulo} ${produto.nome}` : produto.nome;
   const detalhes = [tamanho?.rotulo, opcao && `${cat.opcoes.rotulo.toLowerCase()} ${opcao}`].filter(Boolean).join(", ");
   const valor = preco == null ? "" : `: ${reais(preco * qtd)}`;
-  return `Olá! Vim pelo catálogo da Fine Line e quero pedir:\n\n• ${qtd}x ${nome}${detalhes ? ` (${detalhes})` : ""}${valor}\n\nPode me passar as formas de pagamento e entrega?`;
+  // link da foto vai por último para o WhatsApp mostrar a prévia da imagem
+  const foto = new URL(fotoWhats(produto), location.href).href;
+  return `Olá! Vim pelo catálogo da Fine Line e quero pedir:\n\n• ${qtd}x ${nome}${detalhes ? ` (${detalhes})` : ""}${valor}\n\nPode me passar as formas de pagamento e entrega?\n\nFoto do produto: ${foto}`;
 }
 
+// versão em JPG com fundo, gerada para cada produto em assets/img/whats/
+const fotoWhats = (produto) => produto.foto.replace("assets/img/", "assets/img/whats/").replace(/\.webp$/, ".jpg");
 let timerAviso;
 function avisar(texto) {
   const t = $("#toast");
@@ -148,6 +157,7 @@ function rotuloHTML(seg) {
     <ul class="rotulo__avisos">${seg.avisos.map((a) => `<li>${a}</li>`).join("")}</ul>
     <div class="rotulo__dados">
       ${linha("Composição", seg.composicao)}
+      ${linha("Modo de usar", seg.modoDeUsar)}
       ${linha("Conteúdo", seg.conteudo)}
       ${linha("Uso", seg.uso)}
       ${linha("Validade", seg.validade)}
@@ -176,6 +186,11 @@ function montarComprar() {
       <li class="revelar"><strong>Toque em “Pedir”</strong> e a mensagem já vai pronta para o nosso WhatsApp.</li>
       <li class="revelar"><strong>Combine</strong> com a gente o pagamento e a entrega.</li>
     </ol>
+    <ul class="comprar__info revelar">
+      <li><strong>Até 2x sem juros</strong> no cartão</li>
+      <li><strong>Pix</strong> à vista</li>
+      <li><strong>Entrega em Curitiba e região</strong>, você só paga o frete</li>
+    </ul>
     <a class="botao botao--grande revelar js-whats" href="#"><svg class="ico"><use href="#i-whats"/></svg> Falar no WhatsApp</a>`;
 }
 
@@ -291,7 +306,7 @@ function montarCategoria(cat) {
     $("[data-abrir]", card).onclick = () => abrirFicha(cat, p);
     // com opções (ex.: aroma da vela) a pessoa escolhe na ficha antes de pedir
     $(".js-pedir", card).onclick = (e) => {
-      if (cat.opcoes) { e.preventDefault(); abrirFicha(cat, p); }
+      if (cat.opcoes || p.minimo) { e.preventDefault(); abrirFicha(cat, p); }
       else abrirWhats(mensagemPedido(cat, p, cat.tamanhos?.[tamanhoAtual]), e);
     };
   });
@@ -356,6 +371,9 @@ function atualizarFicha() {
   const preco = tam ? tam.preco : produto.preco;
   $("#ficha-qtd").textContent = qtd;
   $("#ficha-preco").textContent = preco == null ? "Sob consulta" : reais(preco * qtd);
+  $("#ficha-parcela").textContent = preco == null ? "" : `ou 2x de ${reais((preco * qtd) / 2)} sem juros`;
+  $("#ficha-minimo").textContent = produto.minimo ? `Pedido mínimo: ${produto.minimo} unidades` : "";
+  $("#ficha-minimo").hidden = !produto.minimo;
   const inclui = [...(tam ? [`${tam.rotulo} de essência`] : []), ...(cat.inclui || [])];
   $("#ficha-categoria").textContent = [cat.titulo, produto.tamanho].filter(Boolean).join(" · ");
   $("#ficha-mais").hidden = !inclui.length;
@@ -363,7 +381,7 @@ function atualizarFicha() {
 }
 
 function abrirFicha(cat, produto) {
-  fichaEstado = { cat, produto, tamanho: tamanhoAtual, qtd: 1, opcao: 0 };
+  fichaEstado = { cat, produto, tamanho: tamanhoAtual, qtd: produto.minimo || 1, opcao: 0 };
   $("#ficha-vitrine").classList.toggle("vitrine--larga", produto.formato === "largo");
   $("#ficha-bloco-opcoes").hidden = !cat.opcoes;
   if (cat.opcoes) {
@@ -408,7 +426,8 @@ ficha.addEventListener("click", (e) => {
   if (e.target === ficha || e.target.closest("[data-fechar]")) ficha.close();
   const q = e.target.closest("[data-qtd]");
   if (q) {
-    fichaEstado.qtd = Math.min(20, Math.max(1, fichaEstado.qtd + Number(q.dataset.qtd)));
+    const minimo = fichaEstado.produto.minimo || 1;
+    fichaEstado.qtd = Math.min(Math.max(20, minimo * 10), Math.max(minimo, fichaEstado.qtd + Number(q.dataset.qtd)));
     atualizarFicha();
   }
 });
